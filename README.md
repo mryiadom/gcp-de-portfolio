@@ -63,7 +63,7 @@ Full interactive tracker: [gcp-de-tracker](https://mryiadom.github.io/gcp-de-por
 - [x] Week 2 — Git and Code Review
 - [x] Week 3 — Python Environments and Tooling
 - [x] Week 4 — How Data Is Actually Represented
-- [x] Week 5 — How the Internet Moves Data
+- [ ] Week 5 — How the Internet Moves Data
 - [x] Week 6 — How a Query Actually Runs
 
 **Phase 1 — Core Skills (Weeks 7–11)**
