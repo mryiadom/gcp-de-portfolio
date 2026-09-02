@@ -6,7 +6,7 @@ Production-shaped data engineering on Google Cloud, built from finance and marke
 
 I'm Ronald, a Junior Data Engineer working day-to-day in SQL, Python, BigQuery and Dataform. This repo is the index for a structured 33-week deepening of that — Cloud Storage, BigQuery, dbt, Terraform, Airflow and Kafka — through three progressively larger projects.
 
-Every week produces a committed artefact. Small components accumulate into three major projects, so nothing here is throwaway practice — the utility module written in Week 1 of Core Skills is imported by the capstone at the end.
+Every week produces a committed artefact. Small components accumulate into three major projects, so nothing here is throwaway practice — the utility module written in Week 7 is imported by the capstone at the end.
 
 ## Why GCP
 
@@ -22,7 +22,9 @@ The answer is the portable spine. SQL, dbt, Airflow, Kafka, Docker, Terraform, p
 | 2 | **Market Data ELT Pipeline** — markets API → Cloud Storage → BigQuery → dbt star schema → Looker Studio, fully provisioned with Terraform | dbt, BigQuery, Terraform, Docker, pytest | Planned |
 | 3 | **Trading-Data Platform** — capstone. Adds a Kafka streaming path (simulated ticks), Airflow orchestration, least-privilege IAM, data-quality checks with alerting, and CI/CD | Kafka, Airflow, IAM, Great Expectations, GitHub Actions | Planned |
 
-Each project is documented in this repo with its own write-up and findings. Mini-projects across every week feed into them — a trade-utils module, a SQL query library, a cleaning notebook, a warehouse client class, a dbt project, a Terraform stack, a packaged ingestion module with retries and tests.
+Each major project gets its own repo — `equity-markets-analytics`, `market-data-elt`, `trading-data-platform` — linked here once it exists. Mini-projects across every week feed into them — a trade-utils module, a SQL query library, a cleaning notebook, a warehouse client class, a dbt project, a Terraform stack, a packaged ingestion module with retries and tests.
+
+Week 15 is where this becomes a genuinely *finance* portfolio rather than a generic GCP one: corporate actions and adjusted vs. raw close, point-in-time correctness (bitemporal modelling, not just an SCD Type 2), durable instrument identifiers (ISIN/SEDOL/FIGI, since tickers get reused and reassigned), and trading calendars vs. calendar days.
 
 ## Engineering standards
 
@@ -56,7 +58,7 @@ Applications begin at Week 17, in parallel with Phases 3–5, rather than at the
 
 ## Progress
 
-Full interactive tracker: [gcp-de-tracker](https://mryiadom.github.io/gcp-de-portfolio/gcp-de-tracker.html).
+Full interactive tracker: [gcp-de-tracker](https://mryiadom.github.io/gcp-de-portfolio/gcp-de-tracker.html). Served from `docs/` via GitHub Pages (Settings → Pages → branch `main`, folder `/docs`), which is why the tracker HTML lives there instead of the repo root.
 
 **Phase 0 — Foundations (Weeks 1–6)**
 - [x] Week 1 — The Command Line
