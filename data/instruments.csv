@@ -1,0 +1,7 @@
+instrument_id,ticker,name,sector
+1,AAPL,Apple Inc.,Technology
+2,MSFT,Microsoft Corp.,Technology
+3,JPM,JPMorgan Chase & Co.,Financials
+4,XOM,Exxon Mobil Corp.,Energy
+5,JNJ,Johnson & Johnson,Healthcare
+6,NVDA,NVIDIA Corp.,Technology
