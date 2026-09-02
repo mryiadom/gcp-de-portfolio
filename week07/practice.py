@@ -81,8 +81,12 @@ print(prices)
 volume_by_ticker = {ticker: sum(t["volume"] for t in trades if t["ticker"] == ticker) for ticker in tickers}
 print(volume_by_ticker)
 
-# 3. pct_return raises ValueError when old_price is 0 — that behaviour now lives in src/trade_utils.py
-print(pct_return(0, 230))
+# 3. pct_return raises ValueError when old_price is 0 — the raise lives in src/trade_utils.py,
+# and catching it is the caller's job, which is here.
+try:
+    print(pct_return(0, 230))
+except ValueError as ex:
+    print(ex)
 
 
 '''FRIDAY'''
