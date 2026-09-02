@@ -11,4 +11,16 @@ trades = [
     {"ticker": "JNJ",  "price": 166.07, "volume": 750,  "side": "SELL"},
 ]
 
-print(trades)
+
+# 1. Print every trade priced above 220. (Check: should be 4 of the 10.)
+for trade in trades:
+    if trade['price'] > 220:
+        print(trade['ticker'], trade['price'])
+
+# 2. Store the same ten trades three different ways — a list of dicts, a dict keyed by ticker, and a list of tuples. Write one sentence on which you'd pick for looking up a single ticker by name, and why.
+by_ticker = {t["ticker"]: t for t in trades}
+as_tuples = [(t["ticker"], t["price"], t["volume"], t["side"]) for t in trades]
+
+# 3. Use a set to find how many distinct tickers are in the list. (Check: should be 5.)
+tickers = {t["ticker"] for t in trades}
+print(len(tickers))
