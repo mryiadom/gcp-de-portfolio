@@ -59,12 +59,12 @@ Applications begin at Week 17, in parallel with Phases 3–5, rather than at the
 Full interactive tracker: [gcp-de-tracker](https://mryiadom.github.io/gcp-de-portfolio/gcp-de-tracker.html).
 
 **Phase 0 — Foundations (Weeks 1–6)**
-- [ ] Week 1 — The Command Line
-- [ ] Week 2 — Git and Code Review
-- [ ] Week 3 — Python Environments and Tooling
-- [ ] Week 4 — How Data Is Actually Represented
-- [ ] Week 5 — How the Internet Moves Data
-- [ ] Week 6 — How a Query Actually Runs
+- [x] Week 1 — The Command Line
+- [x] Week 2 — Git and Code Review
+- [x] Week 3 — Python Environments and Tooling
+- [x] Week 4 — How Data Is Actually Represented
+- [x] Week 5 — How the Internet Moves Data
+- [x] Week 6 — How a Query Actually Runs
 
 **Phase 1 — Core Skills (Weeks 7–11)**
 - [x] Week 7 — Python Fundamentals
