@@ -1,4 +1,7 @@
-numpy==2.5.2
+# direct dependencies only -- pip resolves the transitive ones
 pandas==3.0.5
-python-dateutil==2.9.0.post0
-six==1.17.0
+numpy==2.5.2
+
+# running the notebooks
+ipykernel==7.3.0
+nbconvert==7.17.1
