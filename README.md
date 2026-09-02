@@ -68,7 +68,7 @@ Full interactive tracker: [gcp-de-tracker](https://mryiadom.github.io/gcp-de-por
 
 **Phase 1 — Core Skills (Weeks 7–11)**
 - [x] Week 7 — Python Fundamentals
-- [ ] Week 8 — SQL Fundamentals
+- [x] Week 8 — SQL Fundamentals
 - [ ] Week 9 — Pandas Fundamentals
 - [ ] Week 10 — Advanced SQL: Window Functions, CTEs, Optimisation
 - [ ] Week 11 — Python OOP for Data Engineers
