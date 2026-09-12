@@ -1,6 +1,7 @@
 # direct dependencies only -- pip resolves the transitive ones
 pandas==3.0.5
 numpy==2.5.2
+matplotlib==3.11.2
 
 # running the notebooks
 ipykernel==7.3.0
