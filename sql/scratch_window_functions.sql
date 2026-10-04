@@ -214,3 +214,115 @@ SELECT
   CASE WHEN pct_change < -2 THEN 'WATCH' ELSE 'PASS' END AS pct_change_status
 FROM
   pct_chg;
+
+
+-- ============================================================
+-- Wednesday: chained CTEs
+-- ============================================================
+
+-- 1. Rewrite the Week 8 Thursday subquery (trades above the overall average
+-- price, 11 rows) as chained CTEs. (Check: same 11 rows.)
+-- The average gets its own named step and is attached with a CROSS JOIN, so
+-- the WHERE compares two plain columns and no nested SELECT is left.
+-- CROSS JOIN is safe here ONLY because price_avg has exactly one row -- it
+-- has no key to join on, so every trade is paired with that one row. With
+-- two rows every trade would appear twice and the row count would double.
+-- (The per-instrument version in sql/analytics/above_average_trades.sql
+-- is already written as chained CTEs, so there is no subquery in it to
+-- rewrite.)
+WITH
+  base AS (
+    SELECT
+      price
+    FROM
+      `de-project-finance.market_practice.trades`
+  ),
+  price_avg AS (
+    SELECT
+      AVG(price) AS avg_price
+    FROM `de-project-finance.market_practice.trades`
+  )
+SELECT
+  base.*
+FROM
+  base
+CROSS JOIN
+  price_avg
+WHERE
+  price > avg_price;
+
+-- 2. Three-stage query: daily returns -> 7-day moving average -> rank within
+-- month. This is the working core of sql/analytics/returns_analysis.sql.
+-- Checks (all run): 645 rows; 30 null ma_7 (6 per ticker); 30 rank-1 rows
+-- (5 tickers x 6 months); no rank-1 row has a null return.
+--
+--   * Every window is PARTITION BY ticker. Without it the LAG and the
+--     average would run down the whole table and blend instruments trading
+--     at 118 and 468 into one number.
+--   * ROWS BETWEEN 6 PRECEDING AND CURRENT ROW is a 7-row window: the 6 before
+--     plus the current row. 7 PRECEDING would be 8 rows.
+--   * SQL averages whatever rows a window holds, so the first rows would carry
+--     a value built from 1-6 prices, labelled as a 7-day average. pandas'
+--     rolling(n) returned null until the window was full; SQL does not.
+--     The CASE nulls ma_7 until the 7th row, leaving 6 nulls per ticker.
+--     The gate (>= 7) and the frame (6 PRECEDING) are two separate 7s that
+--     must be changed together.
+--   * The condition is >= 7, not = 7. With = 7 only the 7th row per ticker
+--     has a value (640 nulls instead of 30).
+--   * Month is DATE_TRUNC(price_date, MONTH), which keeps the year, so
+--     January 2026 and January 2027 could never share a rank group.
+--   * Rank 1 is each ticker's best return in that month. DESC puts the null
+--     first return of each ticker last, so it cannot reach rank 1.
+-- Cross-check: AAPL's January best day is 2026-01-28 at +3.18%, the same row
+-- as its best day over the whole period in Tuesday's query.
+WITH
+  base AS (
+    SELECT
+      ticker,
+      price_date,
+      DATE_TRUNC(price_date, MONTH) AS price_month,
+      open,
+      close,
+      LAG(close) OVER (PARTITION BY ticker ORDER BY price_date) AS old_close
+    FROM
+      `de-project-finance.market_practice.prices`
+  ),
+  percentage_change AS (
+    SELECT
+      base.*,
+      SAFE_DIVIDE((close - old_close), old_close) * 100 AS pct_chg
+    FROM
+      base
+  ),
+  moving_avg AS (
+    SELECT
+      *,
+      CASE
+        WHEN
+          ROW_NUMBER() OVER (PARTITION BY ticker ORDER BY price_date ASC)
+          >= 7
+          THEN
+            AVG(close)
+              OVER (
+                PARTITION BY ticker
+                ORDER BY price_date
+                ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+              )
+        ELSE NULL
+        END AS ma_7
+    FROM
+      percentage_change
+  )
+SELECT
+  *,
+  ROW_NUMBER()
+    OVER (PARTITION BY ticker, price_month ORDER BY pct_chg DESC) AS pct_chg_rank
+FROM
+  moving_avg;
+
+-- 3. Recursive CTE: when it is the right tool. Not written, by choice.
+-- A normal CTE is a named step computed once; a recursive one has an anchor
+-- plus a step that reads its own output, repeating until no new rows appear.
+-- It suits data of unknown depth -- hierarchies, linked chains, generated
+-- date ranges -- where the number of self-joins can't be written in advance.
+-- Nothing in the returns query needs it: every stage is fixed-depth.
