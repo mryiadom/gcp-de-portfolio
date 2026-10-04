@@ -90,3 +90,127 @@ FROM
 LEFT JOIN
   `de-project-finance.market_practice.instruments` AS instruments
   USING (instrument_id);
+
+
+-- ============================================================
+-- Tuesday: LAG, LEAD and period-over-period returns
+-- Uses market_practice.prices (daily OHLCV), not trades: a daily return
+-- needs one price per ticker per day, and trades are irregular.
+-- ============================================================
+
+-- 1. Daily percentage return per ticker with LAG, close to previous close.
+-- (Check: 5 null rows, one per ticker -- each ticker's first day has no
+-- previous close. If only 1 were null, PARTITION BY ticker would be missing
+-- and the window would run down the whole table.)
+-- The return compares close with the previous CLOSE. Using open instead
+-- measures the overnight gap, a different quantity, and gives wrong
+-- best-day values (AAPL 3.05 rather than 3.18).
+WITH
+  base AS (
+    SELECT
+      * EXCEPT (volume, high, low),
+      LAG(close) OVER (PARTITION BY ticker ORDER BY price_date) AS old_close,
+    FROM
+      `de-project-finance.market_practice.prices`
+  )
+SELECT
+  *,
+  ROUND(SAFE_DIVIDE((close - old_close), old_close) * 100, 2) AS pct_change
+FROM
+  base;
+
+-- 2a. Each ticker's single best day, CTE form (portable to Postgres).
+-- (Check: AAPL 2026-01-28 +3.18%, MSFT 2026-05-29 +3.73%.)
+-- ROW_NUMBER rather than RANK, so a tie still returns exactly one row.
+-- A MAX() OVER (PARTITION BY ticker) finds the best VALUE but not which
+-- row held it, and GROUP BY would drop the date entirely.
+WITH
+  base AS (
+    SELECT
+      * EXCEPT (volume, high, low),
+      LAG(close) OVER (PARTITION BY ticker ORDER BY price_date) AS old_close,
+    FROM
+      `de-project-finance.market_practice.prices`
+  ),
+  final AS (
+    SELECT
+      ticker,
+      price_date,
+      ROUND(SAFE_DIVIDE((close - old_close), old_close) * 100, 2) AS pct_change
+    FROM
+      base
+  ),
+  best_trade_day AS (
+    SELECT
+      *,
+      ROW_NUMBER()
+        OVER (PARTITION BY ticker ORDER BY pct_change DESC) AS pct_rank
+    FROM
+      final
+  )
+SELECT
+  * EXCEPT (pct_rank)
+FROM
+  best_trade_day
+WHERE
+  pct_rank = 1;
+
+-- 2b. The same with QUALIFY: shorter, BigQuery/Snowflake only.
+-- Note pct_change must stay numeric. Turning it into a string with CONCAT
+-- would make ORDER BY sort alphabetically ('9.99%' > '10.01%'), which
+-- only happens to work while every return has one digit before the point.
+WITH
+  base AS (
+    SELECT
+      * EXCEPT (volume, high, low),
+      LAG(close) OVER (PARTITION BY ticker ORDER BY price_date) AS old_close,
+    FROM
+      `de-project-finance.market_practice.prices`
+  ),
+  final AS (
+    SELECT
+      ticker,
+      price_date,
+      ROUND(SAFE_DIVIDE((close - old_close), old_close) * 100, 2) AS pct_change
+    FROM
+      base
+  )
+SELECT
+  *,
+  ROW_NUMBER()
+    OVER (PARTITION BY ticker ORDER BY pct_change DESC) AS pct_rank
+FROM
+  final
+QUALIFY
+  pct_rank = 1;
+
+-- 3. LEAD: flag any day followed by a fall of more than 2%. (42 WATCH days.)
+-- The subtraction runs in the OPPOSITE order from the LAG version above.
+-- With LAG the other price is the earlier one, so (close - old_close) is
+-- right. With LEAD the other price is the LATER one, so it must be
+-- (next_close - close) / close: tomorrow minus today, against today.
+-- Copying the LAG formula flags days followed by a RISE instead -- all 49
+-- of the days it flagged were followed by a price increase.
+-- Each ticker's last day has no next day, so its pct_change is null and
+-- falls through to PASS ("no data" reported as "fine").
+WITH
+  base AS (
+    SELECT
+      * EXCEPT (volume, high, low),
+      LEAD(close) OVER (PARTITION BY ticker ORDER BY price_date) AS next_close,
+    FROM
+      `de-project-finance.market_practice.prices`
+  ),
+  pct_chg AS (
+    SELECT
+      ticker,
+      price_date,
+      ROUND(SAFE_DIVIDE((next_close - close), close) * 100, 2) AS pct_change
+    FROM
+      base
+  )
+SELECT
+  *,
+  CASE WHEN pct_change < -2 THEN 'WATCH' ELSE 'PASS' END AS pct_change_status
+FROM
+  pct_chg;
