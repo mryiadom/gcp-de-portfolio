@@ -72,7 +72,7 @@ Full interactive tracker: [gcp-de-tracker](https://mryiadom.github.io/gcp-de-por
 - [x] Week 7 — Python Fundamentals
 - [x] Week 8 — SQL Fundamentals
 - [x] Week 9 — Pandas Fundamentals
-- [ ] Week 10 — Advanced SQL: Window Functions, CTEs, Optimisation
+- [x] Week 10 — Advanced SQL: Window Functions, CTEs, Optimisation
 - [ ] Week 11 — Python OOP for Data Engineers
 
 **Phase 2 — GCP Foundations & First Project (Weeks 12–17)**

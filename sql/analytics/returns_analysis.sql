@@ -18,6 +18,20 @@
 -- Result: AAPL and JPM tie, each ranking first in 2 of the 6 months (AAPL in
 -- Jan and Feb, JPM in Mar and Jun); JNJ led in Apr and MSFT in May; XOM never.
 
+-- Why filtering early matters (measured against market_practice.prices, 55,083 bytes, 645 rows):
+--   1. BigQuery bills for bytes read, so cost falls only when a filter lets it skip data: choosing
+--      columns cut the scan from 55,083 to 13,803 bytes (SELECT * vs ticker, close).
+--   2. A date filter alone did nothing here: 55,083 bytes with and without it, because the table
+--      is not partitioned or clustered, so BigQuery must read every row to apply the WHERE.
+--      It even cost more when only 2 columns were wanted (13,803 -> 18,963), since price_date
+--      has to be read to be tested. A filter saves money only on the column it partitions on.
+--   3. Filtering before the windows, joins and sorts also shrinks what each later stage handles;
+--      the plan's heaviest stage here (the final sort + ranking, 2,971 slot-ms) works on 30 rows,
+--      so the real saving is upstream, where 645 rows are read and cut to 30.
+-- Caveat: at this size the numbers are dominated by fixed overhead (9,234 slot-ms for 55 KB, and
+-- billing rounds up to the 10 MB minimum, 10,485,760 bytes). The effect is real only on large
+-- tables, which is why Week 22 repeats it on a partitioned one.
+
 
 -- ============================================================
 -- Part 1: daily returns and a 7-day moving average, per ticker
