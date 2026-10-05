@@ -13,3 +13,8 @@ instead of getting lost mid-conversation.
   in `README.md` — not per-day, whole-week only. Note: the checkboxes in
   `docs/gcp-de-tracker.html` live in the browser's `localStorage`, not in the file —
   those have to be ticked by the user in-browser, they can't be updated from the repo.
+- **2026-10-05** — When presenting a day's exercises, recommend a **learning order**: say
+  what to read or watch *before* each exercise, with links to the resources, rather than
+  just listing the exercises. Use the roadmap's own resources for that week where they fit
+  (the tracker has videos with chapter timestamps), plus official docs. Only link pages
+  that have been checked to load.
