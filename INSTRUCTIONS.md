@@ -18,3 +18,7 @@ instead of getting lost mid-conversation.
   just listing the exercises. Use the roadmap's own resources for that week where they fit
   (the tracker has videos with chapter timestamps), plus official docs. Only link pages
   that have been checked to load.
+- **2026-10-05** — If an exercise has no resource to point at (no video, doc or tutorial
+  that covers it), explain the concept directly instead, with worked examples where they
+  help. Don't just say there's nothing to link. Still don't write the exercise's answer
+  for them: explain the idea with a different example from the one they're asked about.
