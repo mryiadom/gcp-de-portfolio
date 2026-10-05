@@ -1,6 +1,6 @@
--- run once; pick EU so your data stays in-region
+-- run once; europe-west2 to match the region every later week uses
 CREATE SCHEMA IF NOT EXISTS market_practice
-OPTIONS (location = 'EU');
+OPTIONS (location = 'europe-west2');
 
 CREATE OR REPLACE TABLE market_practice.venues (
   venue_code  STRING NOT NULL,
