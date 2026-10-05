@@ -16,8 +16,8 @@ df.loc[vol_idx,   "volume"] = np.nan
 dupes = df.sample(2, random_state=7)
 df = pd.concat([df, dupes], ignore_index=True)
 
-# 3. make one column the wrong dtype, so .info() tells you something
-df["volume"] = df["volume"].astype("object")
+# 3. no dtype tampering needed: a CSV stores no types, so trade_date reads back
+#    as a string and volume as float64 once it holds NaN. Monday finds both.
 
 df.to_csv("data/raw_trades.csv", index=False)
 print(df.shape)
