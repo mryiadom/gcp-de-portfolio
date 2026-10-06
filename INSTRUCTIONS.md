@@ -22,3 +22,6 @@ instead of getting lost mid-conversation.
   that covers it), explain the concept directly instead, with worked examples where they
   help. Don't just say there's nothing to link. Still don't write the exercise's answer
   for them: explain the idea with a different example from the one they're asked about.
+- **2026-10-06** — Keep the "Currently on: Week N" line in `README.md` (just above the
+  Progress checklist) up to date: when a week is ticked complete, move the line to the
+  next week and update the "N of 33 weeks complete" count.

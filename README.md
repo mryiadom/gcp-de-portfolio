@@ -60,6 +60,8 @@ Applications begin at Week 17, in parallel with Phases 3–5, rather than at the
 
 Full interactive tracker: [gcp-de-tracker](https://mryiadom.github.io/gcp-de-portfolio/gcp-de-tracker.html). Served from `docs/` via GitHub Pages (Settings → Pages → branch `main`, folder `/docs`), which is why the tracker HTML lives there instead of the repo root.
 
+**Currently on: Week 11 — Python OOP for Data Engineers** (9 of 33 weeks complete).
+
 **Phase 0 — Foundations (Weeks 1–6)**
 - [x] Week 1 — The Command Line
 - [x] Week 2 — Git and Code Review
