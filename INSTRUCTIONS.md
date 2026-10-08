@@ -25,3 +25,8 @@ instead of getting lost mid-conversation.
 - **2026-10-06** — Keep the "Currently on: Week N" line in `README.md` (just above the
   Progress checklist) up to date: when a week is ticked complete, move the line to the
   next week and update the "N of 33 weeks complete" count.
+- **2026-10-08** — The Professional Data Engineer certification track runs alongside the
+  roadmap (exam bridges on Weeks 5, 12–22 and 27–33, plus a *Ready to book* checklist in the
+  tracker's Certification track panel). The user decides when to book the exam: don't
+  schedule the booking for them. Instead, say when they look ready, measured against the
+  *Ready to book* checklist.

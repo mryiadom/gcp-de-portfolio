@@ -39,7 +39,7 @@ Applied across the repo from Core Skills onward:
 
 ## Cost control
 
-Built to stay inside free tiers: BigQuery gives 1 TiB of queries and 10 GB of storage free every month against a dataset of roughly 200 MB, and Airflow, Kafka, dbt Core and Great Expectations all run locally under Docker rather than as paid managed services. A Cloud Billing budget alert has been set from day one, with a £5 ceiling generous enough that if it ever fires, something is wrong rather than expensive. The one paid item — the GCP Professional Data Engineer exam — is optional, at the end, and also satisfies the certification line in my workplace development plan.
+Built to stay inside free tiers: BigQuery gives 1 TiB of queries and 10 GB of storage free every month against a dataset of roughly 200 MB, and Airflow, Kafka, dbt Core and Great Expectations all run locally under Docker rather than as paid managed services. A Cloud Billing budget alert has been set from day one, with a £5 ceiling generous enough that if it ever fires, something is wrong rather than expensive. The one paid item — the GCP Professional Data Engineer exam — can be covered by the Partner Certification Kickstart voucher, and also satisfies the certification line in my workplace development plan.
 
 ## Roadmap
 
@@ -56,6 +56,18 @@ A 33-week plan in six phases:
 
 Applications begin at Week 17, in parallel with Phases 3–5, rather than at the end.
 
+## Certification track
+
+Working towards the **Google Cloud Professional Data Engineer** exam alongside the roadmap, through the Partner Certification Kickstart and Skills Boost for Partners. Weeks marked 🎓 below carry an exam topic on top of the week's normal work.
+
+| Stage | Weeks | What happens |
+|---|---|---|
+| 1. Exam bridges | 5, 12–22 | One extra exam topic in each relevant week, usually a Skills Boost lab |
+| 2. Focused prep | 27–32 | Kickstart / learning path, alongside Phase 4 |
+| 3. Exam | When I choose | Booked once the tracker's *Ready to book* checklist is all true — expected around Weeks 33–35 |
+
+Exam guide sections: Designing systems 22% · Ingesting & processing 25% · Storing 20% · Analysis 15% · Maintaining & automating 18%.
+
 ## Progress
 
 Full interactive tracker: [gcp-de-tracker](https://mryiadom.github.io/gcp-de-portfolio/gcp-de-tracker.html). Served from `docs/` via GitHub Pages (Settings → Pages → branch `main`, folder `/docs`), which is why the tracker HTML lives there instead of the repo root.
@@ -67,7 +79,7 @@ Full interactive tracker: [gcp-de-tracker](https://mryiadom.github.io/gcp-de-por
 - [x] Week 2 — Git and Code Review
 - [x] Week 3 — Python Environments and Tooling
 - [x] Week 4 — How Data Is Actually Represented
-- [ ] Week 5 — How the Internet Moves Data
+- [ ] Week 5 — How the Internet Moves Data · 🎓 *§2.1 Networking fundamentals*
 - [x] Week 6 — How a Query Actually Runs
 
 **Phase 1 — Core Skills (Weeks 7–11)**
@@ -78,34 +90,34 @@ Full interactive tracker: [gcp-de-tracker](https://mryiadom.github.io/gcp-de-por
 - [ ] Week 11 — Python OOP for Data Engineers
 
 **Phase 2 — GCP Foundations & First Project (Weeks 12–17)**
-- [ ] Week 12 — Cloud Storage & BigQuery: Building the Lake
-- [ ] Week 13 — Statistics & Maths for a Quant-Track Engineer
-- [ ] Week 14 — Visualisation Principles & BI (Looker Studio)
+- [ ] Week 12 — Cloud Storage & BigQuery: Building the Lake · 🎓 *§1.4 Migrations · §3.1 Lifecycle*
+- [ ] Week 13 — Statistics & Maths for a Quant-Track Engineer · 🎓 *§4.2 Preparing data for ML*
+- [ ] Week 14 — Visualisation Principles & BI (Looker Studio) · 🎓 *§4.1 Preparing data for visualisation*
 - [ ] Week 15 — Market Data Domain Essentials
 - [ ] Week 16 — Major Project 1: Equity Markets Analytics
 - [ ] Week 17 — Project 1 Polish + Start Applying
 
 **Phase 3 — Data Engineering Core (Weeks 18–26)**
-- [ ] Week 18 — Data Modelling & Normalisation
+- [ ] Week 18 — Data Modelling & Normalisation · 🎓 *§3.1 Selecting storage systems*
 - [ ] Week 19 — Dimensional Modelling (Kimball) + Snowflake Awareness
-- [ ] Week 20 — ETL vs ELT & Pipeline Architecture
+- [ ] Week 20 — ETL vs ELT & Pipeline Architecture · 🎓 *§2.2 Building the pipelines · §1.4 Migrations*
 - [ ] Week 21 — dbt on BigQuery
-- [ ] Week 22 — BigQuery Performance and Cost
+- [ ] Week 22 — BigQuery Performance and Cost · 🎓 *§5.3 Capacity management*
 - [ ] Week 23 — Infrastructure as Code (Terraform)
 - [ ] Week 24 — Docker & Containerisation
 - [ ] Week 25 — Production Python for Data Engineering
 - [ ] Week 26 — Major Project 2: Market Data ELT Pipeline
 
 **Phase 4 — Production Systems (Weeks 27–31)**
-- [ ] Week 27 — Orchestration I: Airflow Foundations
-- [ ] Week 28 — Orchestration II: Airflow in Production
-- [ ] Week 29 — Security & IAM for Data Platforms
-- [ ] Week 30 — Data Quality, Testing & CI/CD
-- [ ] Week 31 — Streaming with Kafka
+- [ ] Week 27 — Orchestration I: Airflow Foundations · 🎓 *Stage 2 begins · Kickstart*
+- [ ] Week 28 — Orchestration II: Airflow in Production · 🎓 *§2.3 · §5.2 Cloud Composer and Workflows*
+- [ ] Week 29 — Security & IAM for Data Platforms · 🎓 *§1.1 · §4.1 · §4.3 Security, privacy, sharing*
+- [ ] Week 30 — Data Quality, Testing & CI/CD · 🎓 *§5.4 · §5.5 Monitoring and failure*
+- [ ] Week 31 — Streaming with Kafka · 🎓 *§2.2 Streaming*
 
 **Phase 5 — Capstone & Job Hunt (Weeks 32–33)**
-- [ ] Week 32 — Major Project 3: Trading-Data Platform (Build)
-- [ ] Week 33 — Capstone Polish, CV & Interview Prep
+- [ ] Week 32 — Major Project 3: Trading-Data Platform (Build) · 🎓 *§1.2 · §2.2 · §4.2 AI features · readiness check*
+- [ ] Week 33 — Capstone Polish, CV & Interview Prep · 🎓 *Stage 3 · exam readiness*
 
 ## Contact
 
