@@ -30,3 +30,8 @@ instead of getting lost mid-conversation.
   tracker's Certification track panel). The user decides when to book the exam: don't
   schedule the booking for them. Instead, say when they look ready, measured against the
   *Ready to book* checklist.
+- **2026-10-09** — `REVISIT.md` (repo root) lists exercises and weeks skipped on purpose,
+  each with when it matters. Keep it up to date when something else is skipped, tick items
+  when they're done, and remind the user of the relevant ones before they're needed (e.g.
+  Week 11's `MarketDataClient` before Week 25, the inheritance answer before Week 27).
+  Ask before ticking a week in the README if parts of it are in `REVISIT.md`.
