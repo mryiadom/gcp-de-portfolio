@@ -9,3 +9,8 @@ requests==2.34.2
 # running the notebooks
 ipykernel==7.3.0
 nbconvert==7.17.1
+
+# BigQuery client (Week 12 WarehouseClient)
+google-cloud-bigquery==3.46.1
+pyarrow==26.0.0     # lets .to_dataframe() read BigQuery results
+db-dtypes==1.7.2    # pandas types for BigQuery DATE and TIME columns

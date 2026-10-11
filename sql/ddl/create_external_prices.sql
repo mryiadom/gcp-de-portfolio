@@ -1,0 +1,2 @@
+-- sql/ddl/create_external_prices.sql
+-- Week 12 Wednesday: external table over prices.csv in Cloud Storage

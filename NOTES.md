@@ -85,4 +85,17 @@ Both are in `europe-west2`. An external table reads its data straight from the b
 - A native table keeps its data inside BigQuery, in BigQuery's own storage. Queries on it are fast, and it can be partitioned and clustered.
 - An external table keeps its data in Cloud Storage. BigQuery stores only the table definition (the schema and where the files are) and reads the files each time you query it.
 
-For the `raw` layer I will use an external table over `prices.csv`: the file stays in the bucket exactly as it arrived, and the table is only a way to query it.
+| | Native | External |
+|---|---|---|
+| Where the data lives | Inside BigQuery storage | Stays in Cloud Storage |
+| Query speed | Faster | Slower, the file is read on every query |
+| Partitioning and clustering | Yes | Limited, mostly by folder layout |
+| Storage cost | BigQuery storage prices | Cloud Storage prices only |
+| New data | Has to be loaded | A new file in the folder appears at once |
+
+External pros: one raw copy of the data, no load step, cheap to store.
+External cons: slower, fewer features, and the table breaks or changes if the file is deleted or changed.
+Native pros: fast, cheaper to query repeatedly, a stable snapshot.
+Native cons: a second copy of the data that has to be kept up to date, and BigQuery storage costs on top of the bucket.
+
+For the `raw` layer I will use an external table over `prices.csv`: the file stays in the bucket exactly as it arrived, and the table is only a way to query it. Native tables built from it can come later for the layers I query often.
