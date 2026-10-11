@@ -68,3 +68,21 @@ What it costs:
 
 - Every read of Nearline data costs $0.01 per GiB, which is the same as the monthly saving. Reading all of the data once a month cancels out the saving, so Nearline only pays off for data read less often than that.
 - An object deleted or rewritten before it has been in Nearline for 30 days is still charged for the full 30 days (the minimum storage duration).
+
+## Week 12 — BigQuery dataset
+
+### Locations
+
+| | Name | Location |
+|---|---|---|
+| Cloud Storage bucket | `ronald-equity-analytics-raw-dev` | `europe-west2` (London) |
+| BigQuery dataset | `market_elt` | `europe-west2` (London) |
+
+Both are in `europe-west2`. An external table reads its data straight from the bucket, so the dataset and the bucket have to be in the same location. A bucket in one location and a dataset in another will not query each other.
+
+### Native and external tables
+
+- A native table keeps its data inside BigQuery, in BigQuery's own storage. Queries on it are fast, and it can be partitioned and clustered.
+- An external table keeps its data in Cloud Storage. BigQuery stores only the table definition (the schema and where the files are) and reads the files each time you query it.
+
+For the `raw` layer I will use an external table over `prices.csv`: the file stays in the bucket exactly as it arrived, and the table is only a way to query it.
