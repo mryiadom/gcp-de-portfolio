@@ -13,6 +13,9 @@ class Ticker:
     def __repr__(self) -> str:
         return f"Ticker('{self.symbol}', '{self.name}', '{self.sector}')"
 
+    def __eq__(self, other) -> bool:
+        return self.symbol == other.symbol and self.sector == other.sector 
+
     @classmethod
     def how_many(cls):
         return f'There are {cls.ticker_count} tickers'

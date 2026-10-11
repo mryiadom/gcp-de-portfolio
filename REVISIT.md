@@ -11,6 +11,13 @@ Tick them off here as they're done.
 - [ ] **Wednesday, exercise 3** — one line on why the session is created once in `__init__`.
 - [ ] **Thursday, exercise 2** — one case where subclassing `Ticker` is wrong, one where inheritance fits. **Needed for Week 27.**
 
+- [ ] **Friday, exercise 1** — type hints and docstrings on every function in `src/`.
+- [ ] **Friday, exercise 2** — `src/__init__.py` exporting `WarehouseClient` and `Ticker`.
+- [ ] **Friday, exercise 3** — `WarehouseClient` with `run_query()` and `to_dataframe()` as stubs raising `NotImplementedError`.
+
+**Do Friday's exercise 3 before Week 12's Friday.** Week 12 Friday implements those two methods for real,
+so the `WarehouseClient` class has to exist first (Week 16 reuses it too). Exercises 1 and 2 can wait longer.
+
 `MarketDataClient` (Wednesday) is first used in **Week 25**; do it before then.
 `__init__` is built already, so only `.get()` and the written line are left.
 

@@ -72,7 +72,7 @@ Exam guide sections: Designing systems 22% · Ingesting & processing 25% · Stor
 
 Full interactive tracker: [gcp-de-tracker](https://mryiadom.github.io/gcp-de-portfolio/gcp-de-tracker.html). Served from `docs/` via GitHub Pages (Settings → Pages → branch `main`, folder `/docs`), which is why the tracker HTML lives there instead of the repo root.
 
-**Currently on: Week 11 — Python OOP for Data Engineers** (9 of 33 weeks complete).
+**Currently on: Week 12 — Cloud Storage & BigQuery: Building the Lake** (9 of 33 weeks complete; Week 11 is partly done, see `REVISIT.md`).
 
 **Phase 0 — Foundations (Weeks 1–6)**
 - [x] Week 1 — The Command Line
