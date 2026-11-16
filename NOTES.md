@@ -107,3 +107,24 @@ Table: `de-project-finance.market_elt.raw_prices`, built from `sql/ddl/create_ex
 Breaking it: I changed `open` from `NUMERIC` to `INT64`. Creating the table still succeeded, and `COUNT(*)` still returned 645, but any query that read `open` failed with `Unable to parse ... column_name: "open" column_type: INT64 value: "223.64"`. BigQuery errored loudly rather than returning nulls.
 
 Lesson: an external table does not check the file against the schema when it is created, only when a query reads the column, so a wrong type can sit unnoticed until a query touches it.
+
+## Week 12 — Auto-detect vs hand-written schema
+
+Both tables read the same file and return 645 rows: `market_elt.raw_prices` (hand-written DDL, `sql/ddl/create_external_prices.sql`) and `market_elt.raw_prices_auto` (schema auto-detected). Compared with `INFORMATION_SCHEMA.COLUMNS`.
+
+### Differences
+
+| | Hand-written | Auto-detect |
+|---|---|---|
+| `open`, `high`, `low`, `close` | `NUMERIC` | `FLOAT64` |
+| `ticker`, `price_date`, `volume` | `STRING`, `DATE`, `INT64` | same |
+| Header row | `skip_leading_rows = 1`, stated | not set; it guessed the first row was a header (the names came out right) |
+| `SUM(close)` | `147171.66` | `147171.65999999989` |
+
+The only type difference is the four price columns. The float sum drifts in the last digits because `FLOAT64` cannot hold values like 224.08 exactly, which is the money-as-floats problem from Week 4 and the `# TODO` in `src/trade_utils.py`.
+
+### Decision
+
+I keep the hand-written DDL. It gives exact decimals for prices, it states the header skip instead of relying on a guess, and it lives in version control. Auto-detect is fine for a first look at an unfamiliar file, but it is a guess made from a sample of the file: a new file with an odd first row could change the types without warning.
+
+`raw_prices_auto` is only there for this comparison and can be dropped.
