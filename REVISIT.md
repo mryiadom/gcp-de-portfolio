@@ -23,8 +23,8 @@ so the `WarehouseClient` class has to exist first (Week 16 reuses it too). Exerc
 
 ## Week 12 — Cloud Storage and BigQuery
 
-- [ ] **Wednesday, exercise 1** — save the `CREATE EXTERNAL TABLE` statement (explicit schema, `skip_leading_rows`) in `sql/ddl/create_external_prices.sql`. The table exists and returns 645, but the file is empty.
-- [ ] **Wednesday, exercises 2 and 3** — break a column type to `int`, record whether BigQuery errors or returns nulls, then write the one-sentence lesson in `NOTES.md`.
+- [x] **Wednesday, exercise 1** — save the `CREATE EXTERNAL TABLE` statement (explicit schema, `skip_leading_rows`) in `sql/ddl/create_external_prices.sql`. The table exists and returns 645, but the file is empty.
+- [x] **Wednesday, exercises 2 and 3** — break a column type to `int`, record whether BigQuery errors or returns nulls, then write the one-sentence lesson in `NOTES.md`.
 - [ ] **Thursday, both exercises** — compare auto-detection with the hand-written DDL (list every difference), then write down which one you keep and why. Needs the Wednesday DDL first.
 
 ## Earlier weeks

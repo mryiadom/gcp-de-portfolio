@@ -99,3 +99,11 @@ Native pros: fast, cheaper to query repeatedly, a stable snapshot.
 Native cons: a second copy of the data that has to be kept up to date, and BigQuery storage costs on top of the bucket.
 
 For the `raw` layer I will use an external table over `prices.csv`: the file stays in the bucket exactly as it arrived, and the table is only a way to query it. Native tables built from it can come later for the layers I query often.
+
+### External table over `prices.csv`
+
+Table: `de-project-finance.market_elt.raw_prices`, built from `sql/ddl/create_external_prices.sql` (explicit schema, `skip_leading_rows = 1`). `SELECT COUNT(*)` returns 645.
+
+Breaking it: I changed `open` from `NUMERIC` to `INT64`. Creating the table still succeeded, and `COUNT(*)` still returned 645, but any query that read `open` failed with `Unable to parse ... column_name: "open" column_type: INT64 value: "223.64"`. BigQuery errored loudly rather than returning nulls.
+
+Lesson: an external table does not check the file against the schema when it is created, only when a query reads the column, so a wrong type can sit unnoticed until a query touches it.
